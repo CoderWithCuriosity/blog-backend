@@ -8,7 +8,7 @@ export const createPost = async (req: AuthRequest, res: Response) => {
         if (!req.body) {
             return res.json({ message: 'Title, Content, Image Required' })
         }
-        const { title, content, image } = req.body;
+        const { title, content, images } = req.body;
 
         const slug = slugify(title, { lower: true });
 
@@ -16,7 +16,7 @@ export const createPost = async (req: AuthRequest, res: Response) => {
             title,
             slug,
             content,
-            image,
+            images,
             userId: req.user!.id
         });
         return res.json(post);

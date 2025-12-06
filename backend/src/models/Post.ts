@@ -7,7 +7,7 @@ interface PostAttributes {
     title: string,
     slug: string,
     content: string,
-    image: string,
+    images: string[],
     userId: number
 }
 
@@ -18,7 +18,7 @@ class Post extends Model<PostAttributes, PostCreation> implements PostAttributes
     public title!: string;
     public slug!: string;
     public content!: string;
-    public image!: string;
+    public images!: string[];
     public userId!: number;
 }
 
@@ -32,7 +32,10 @@ Post.init(
         title: DataTypes.STRING,
         slug: DataTypes.STRING,
         content: DataTypes.STRING,
-        image: DataTypes.STRING,
+        images: {
+            type: DataTypes.JSON,
+            defaultValue: []
+        },
         userId: {
             type: DataTypes.INTEGER,
             references: {
