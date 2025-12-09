@@ -436,34 +436,3 @@ Body: deleteImages=[2]  # Remove second image
 DELETE /api/posts/1
 Headers: Authorization: Bearer eyJ...
 ```
-
----
-
-## 🔗 Related Resources
-
-1. [Multer Documentation](https://github.com/expressjs/multer)
-2. [Cloudinary Node SDK](https://cloudinary.com/documentation/node_integration)
-3. [Sequelize Associations](https://sequelize.org/docs/v6/core-concepts/assocs/)
-4. [Express File Uploads](https://expressjs.com/en/resources/middleware/multer.html)
-
----
-
-## 📞 Support
-
-For issues:
-1. Check the console logs
-2. Verify file permissions on `uploads/` directory
-3. Ensure database is running
-4. Check all environment variables are set
-
-**Example Debug Command:**
-```bash
-# Check if uploads directory exists
-ls -la uploads/
-
-# Check server logs
-npm run dev 2>&1 | grep -i error
-```
-
----
-
