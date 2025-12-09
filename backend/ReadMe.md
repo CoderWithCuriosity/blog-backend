@@ -467,5 +467,3 @@ npm run dev 2>&1 | grep -i error
 
 ---
 
-## 🎉 Congratulations!
-You now have a fully functional blog API with image upload capabilities. The structure is modular, so you can easily add new routes and features following the same pattern!
