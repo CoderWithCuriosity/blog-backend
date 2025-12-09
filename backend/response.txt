@@ -1,0 +1,201 @@
+Yes!
+You’re correct — **Sequelize CRUD basically works through a small set of “magic methods”**:
+
+### **CREATE**
+
+* `Model.create()`
+
+### **READ**
+
+* `Model.findAll()`
+* `Model.findOne()`
+* `Model.findByPk()`
+
+### **UPDATE**
+
+* `instance.update()`
+
+### **DELETE**
+
+* `Model.destroy()`
+* `instance.destroy()`
+
+---
+
+# ✅ Here are ALL the important Sequelize magic commands you need (with examples)
+
+---
+
+# 1️⃣ **CREATE**
+
+### **Create Post**
+
+```ts
+const post = await Post.create({
+  title: "Hello",
+  content: "World",
+  userId: 1
+});
+```
+
+### **Create Comment**
+
+```ts
+const comment = await Comment.create({
+  content: "Nice post!",
+  postId: 10,
+  userId: 1
+});
+```
+
+---
+
+# 2️⃣ **READ (GET)**
+
+## ✔ GET ALL posts
+
+```ts
+const posts = await Post.findAll();
+```
+
+## ✔ GET one post by slug
+
+```ts
+const post = await Post.findOne({ where: { slug: req.params.slug }});
+```
+
+## ✔ GET post by id
+
+```ts
+const post = await Post.findByPk(12);
+```
+
+## ✔ GET comments for a post
+
+```ts
+const comments = await Comment.findAll({
+  where: { postId: req.params.postId }
+});
+```
+
+## ✔ GET comments with user + post details (JOIN)
+
+```ts
+const comments = await Comment.findAll({
+  where: { postId: req.params.postId },
+  include: [User, Post]
+});
+```
+
+## ✔ GET posts including comments (JOIN)
+
+```ts
+const posts = await Post.findAll({
+  include: [Comment]
+});
+```
+
+---
+
+# 3️⃣ **UPDATE**
+
+## ✔ Update a post
+
+```ts
+const post = await Post.findOne({ where: { slug: req.params.slug }});
+await post.update({ title: "Updated title" });
+```
+
+## ✔ Update a comment
+
+```ts
+const comment = await Comment.findByPk(req.params.id);
+await comment.update({ content: "Updated comment" });
+```
+
+---
+
+# 4️⃣ **DELETE**
+
+## ✔ Delete a post
+
+```ts
+await Post.destroy({ where: { slug: req.params.slug }});
+```
+
+## ✔ Delete a comment
+
+```ts
+await Comment.destroy({ where: { id: req.params.id }});
+```
+
+---
+
+# 🔥 BONUS: Association Magic Commands (Auto-generated)
+
+Because you defined relations like:
+
+```ts
+User.hasMany(Post);
+Post.belongsTo(User);
+```
+
+Sequelize automatically gives you **helper methods**:
+
+## For Users:
+
+```ts
+user.createPost()
+user.getPosts()
+user.addPost()
+user.removePost()
+```
+
+## For Posts:
+
+```ts
+post.getComments()
+post.createComment()
+```
+
+Examples:
+
+### **Get user → posts**
+
+```ts
+const user = await User.findByPk(1);
+const posts = await user.getPosts();
+```
+
+### **Create comment on a post**
+
+```ts
+const post = await Post.findByPk(5);
+const comment = await post.createComment({
+  content: "Fire!!",
+  userId: 2
+});
+```
+
+---
+
+# 📌 QUICK SUMMARY (what you want)
+
+| Action         | Post                                 | Comment                                  |
+| -------------- | ------------------------------------ | ---------------------------------------- |
+| Create         | `Post.create()`                      | `Comment.create()`                       |
+| Get All        | `Post.findAll()`                     | `Comment.findAll({ where: { postId } })` |
+| Get One        | `Post.findOne()`                     | `Comment.findByPk()`                     |
+| Update         | `post.update()`                      | `comment.update()`                       |
+| Delete         | `Post.destroy()`                     | `Comment.destroy()`                      |
+| With relations | `Post.findAll({ include: Comment })` | `Comment.findAll({ include: User })`     |
+
+---
+
+# If you want, I can also give you:
+
+✅ Post + Comments in one response (nested)
+✅ Pagination for posts
+✅ Search posts by keyword
+✅ Likes system
+Just tell me.

@@ -30,7 +30,8 @@ PostImage.init(
             references: {
                 model: "Posts",
                 key: "id"
-            }
+            },
+            onDelete: 'CASCADE'
         }
     },
     {
@@ -41,3 +42,6 @@ PostImage.init(
 
 Post.hasMany(PostImage, { foreignKey: "postId" });
 PostImage.belongsTo(Post, { foreignKey: "postId" });
+
+
+export default PostImage;
